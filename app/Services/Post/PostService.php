@@ -27,7 +27,15 @@ class PostService implements PostServiceInterface
   {
     return $this->postDao->getPostList();
   }
-  public function searchPost($search)
+  public function postCreate($post)
+  {
+    return $this->postDao->postCreate($post);
+  }
+  public function postUpdate($post,$id)
+  {
+    return $this->postDao->postUpdate($post,$id);
+  }
+   public function searchPost($search)
   {
     return $this->postDao->searchPost($search);
   }

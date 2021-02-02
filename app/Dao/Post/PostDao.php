@@ -27,6 +27,28 @@ class PostDao implements PostDaoInterface
     }
     return $posts;
   }
+  public function postCreate($post)
+  {
+    Post::create([
+      'title' => $post['title'],
+      'description' => $post['description'],
+      'status' => $post['status'],
+      'create_user_id' => $post['create_user_id'],
+      'create_at' => $post['created_at'],
+  ]);
+  }
+  public function postUpdate($post,$id)
+  {
+    $Post=Post::find($id);
+    $Post->title=$post['title'];
+    $Post->description=$post['description'];
+    $Post->status=$post['status'];
+    $Post->updated_user_id=Auth::user()->id;
+    $Post->updated_at=now();
+    $Post->update();
+    return $Post;
+    $post->update($Post->all());
+  }
   public function searchPost($search)
   {
     $posts= Post::where('title', '=',$search)
