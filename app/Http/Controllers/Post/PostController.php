@@ -174,6 +174,38 @@ class PostController extends Controller
              return redirect()->route('posts.index')
                         ->with('success','Post Updated Successfully');
     }
+    public function uploadCSV()
+    {
+       return view('posts.uploadCSV');
+    }
+   
+    /**
+    * @return \Illuminate\Support\Collection
+    *download post by admin
+    */
+    public function exportByAdmin() 
+    {
+        return Excel::download(new AdminPostsExport(), 'posts.xlsx');
+    }
+    /**
+    * @return \Illuminate\Support\Collection
+     *download post by guest
+    */
+    public function exportByGuest()
+    {
+        return Excel::download(new GuestPostsExport(), 'posts.xlsx');
+    }
+   
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function import() 
+    {
+        Excel::import(new PostsImport,request()->file('file'));
+           
+        return redirect()->route('posts.index')
+        ->with('success','Post Uploaded Successfully');
+    }
       /**
      * Show Delete Confirmation..
      */

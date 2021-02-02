@@ -51,3 +51,9 @@ Route::post('getCreateUser', 'Post\PostController@getCreateUser')->name('getCrea
 Route::get('change-password', 'Auth\ChangePasswordController@index');
 Route::post('change-password', 'Auth\ChangePasswordController@store')->name('change.password');
 Route::get('changePass','Auth\ChangePasswordController@index')->name('changePass');
+/*Post Import/ Export routes*/
+Route::get('exportByAdmin', 'Post\PostController@exportByAdmin')->name('exportByAdmin');
+Route::get('exportByGuest', 'Post\PostController@exportByGuest')->name('exportByGuest');
+Route::get('uploadCSV', 'Post\PostController@uploadCSV')->name('uploadCSV');
+Route::post('import', 'Post\PostController@import')->name('import');
+//
