@@ -18,7 +18,38 @@ class UserDao implements UserDaoInterface
   {
     return User::latest()->paginate(5);
   }
-  
+  public function userCreate($user)
+  {
+    User::create([
+      'name' => $user['name'],
+      'email' => $user['email'],
+      'password' => Hash::make($user['password']),
+      'type' => $user['type'],
+      'phone'=>$user['phone'],
+      'address'=>$user['address'],
+      'dob'=>$user['dob'],
+      'profile'=>$user['profile'],
+      'create_user_id' => $user['create_user_id'],
+      'create_at' => $user['created_at'],
+  ]);
+
+  }
+  public function userUpdate($user,$id)
+  {
+    $User=User::find($id);
+    $User->name=$user['name'];
+    $User->email=$user['email'];
+    $User->type=$user['type'];
+    $User->phone=$user['phone'];
+    $User->address=$user['address'];
+    $User->dob=$user['dob'];
+    $User->updated_user_id=$user['updated_user_id'];
+    $User->updated_at=$user['updated_at'];
+    $User->update();
+    return $User;
+    $User->update($User->all());
+  }
+ 
   public function searchUser($user)
   { 
       if(!empty($user['name']))
