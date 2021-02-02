@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('guestIndex');
 });
+/*Authentication */
+Route::get('/login', 'Auth\AuthController@login')->name('login');
+Route::post('/login', 'Auth\AuthController@authenticate');
+Route::get('logout', 'Auth\AuthController@logout')->name('logout');
