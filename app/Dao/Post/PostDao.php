@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Auth;
 use DB;
+
 class PostDao implements PostDaoInterface
 {
   /**
@@ -19,7 +20,10 @@ class PostDao implements PostDaoInterface
     $id=Auth::user()->id;
     if(Auth::user()->type==0)
     {
-      $posts = DB::table('posts')->paginate(5);
+      $posts= Post::where('deleted_id', '=',NUll)
+      ->orwhere('status','=','1')
+      ->paginate(5);
+      return $posts;
     }
     else
     {
@@ -53,7 +57,8 @@ class PostDao implements PostDaoInterface
   {
     $Post=Post::find($id);
     $Post->deleted_at=now();
-    $Post->deleted_id='1';
+    $Post->deleted_id=Auth::user()->id;
+    $Post->status='0';
     $Post->save();
     return $Post;
   }

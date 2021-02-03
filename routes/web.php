@@ -44,7 +44,7 @@ Route::post('saveUser','User\UserController@saveUser')->name('saveUser');
 Route::get('/users/{id}/showDel', 'User\UserController@showDel')->name('showDel');
 Route::post('del','User\UserController@del')->name('del');
 Route::get('searchUser','User\UserController@searchUser')->name('searchUser');
-Route::get('confirmUpdateUser','User\UserController@confirmUpdateUser')->name('confirmUpdateUser');
+Route::post('confirmUpdateUser','User\UserController@confirmUpdateUser')->name('confirmUpdateUser');
 Route::get('updatingUser','User\UserController@updatingUser')->name('updatingUser');
 Route::post('getCreateUser', 'Post\PostController@getCreateUser')->name('getCreateUser');
 /*And Change Password*/
@@ -57,3 +57,6 @@ Route::get('exportByGuest', 'Post\PostController@exportByGuest')->name('exportBy
 Route::get('uploadCSV', 'Post\PostController@uploadCSV')->name('uploadCSV');
 Route::post('import', 'Post\PostController@import')->name('import');
 //
+
+Route::post('reset_password_without_token', 'AccountsController@validatePasswordRequest');
+Route::post('reset_password_with_token', 'AccountsController@resetPassword');

@@ -43,6 +43,7 @@ class UserDao implements UserDaoInterface
     $User->phone=$user['phone'];
     $User->address=$user['address'];
     $User->dob=$user['dob'];
+    $User->profile=$user['profile'];
     $User->updated_user_id=$user['updated_user_id'];
     $User->updated_at=$user['updated_at'];
     $User->update();
@@ -53,7 +54,7 @@ class UserDao implements UserDaoInterface
   {
     $User=User::find($id);
     $User->deleted_at=now();
-    $User->deleted_user_id='1';
+    $User->deleted_user_id=Auth::user()->id;
     $User->save();
     return $User;
   }

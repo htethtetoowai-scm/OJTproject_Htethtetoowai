@@ -28,7 +28,6 @@ class CreatePostsTable extends Migration
             $table->dateTime('deleted_at',0)->nullable();
         });
     }
-
     /**
      * Reverse the migrations.
      *

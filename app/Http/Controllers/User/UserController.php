@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Contracts\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -60,7 +60,7 @@ class UserController extends Controller
                 ->with('i', (request()->input('page', 1) - 1) * 5);
         }
     }
-   /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -74,17 +74,16 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password' =>'required|min:8',
+            'password_confirm' =>'same:password',
+            'profile' => 'required',
             'type' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'dob' => 'required',
-          
-           
+            'phone' => 'nullable',
+            'address' => 'nullable',
+            'dob' =>'nullable',
         ]); 
-        if ($files = $request->file('profile') ){
-            $destinationPath = 'Image/userProfile/'; // upload path
+           if ($files = $request->file('profile') ){
+            $destinationPath = 'storage/images/'; // upload path
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $profileImage);
             $user['name']=$request->name;
@@ -148,15 +147,45 @@ class UserController extends Controller
         return view('users.edit',compact('user'));
     }
     public function confirmUpdateUser(Request $request)
-    {   
-        $user['id']=$request->id;
-            $user['name']=$request->name;
-            $user['email']=$request->email;
-            $user['type']=$request->type;
-            $user['phone']=$request->phone;
-            $user['address']=$request->address;
-            $user['dob']=$request->dob;
-        return view('users.confirmUpdateUser',compact('user'));
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'profile' => 'nullable',
+            'type' => 'required',
+            'phone' => 'nullable',
+            'address' => 'nullable',
+            'dob' =>'nullable',
+        ]); 
+            if($request->hasfile('profile'))
+            {
+                $files = $request->file('profile');
+                $destinationPath = 'storage/images/'; // upload path
+                $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $profileImage);
+                $user['id']=$request->id;
+                $user['name']=$request->name;
+                $user['email']=$request->email;
+                $user['password']=$request->password;
+                $user['type']=$request->type;
+                $user['phone']=$request->phone;
+                $user['address']=$request->address;
+                $user['dob']=$request->dob;
+                $user['profile']= date('YmdHis') . "." . $files->getClientOriginalExtension();
+            }
+            else
+            {
+                $user['id']=$request->id;
+                $user['name']=$request->name;
+                $user['email']=$request->email;
+                $user['password']=$request->password;
+                $user['type']=$request->type;
+                $user['phone']=$request->phone;
+                $user['address']=$request->address;
+                $user['dob']=$request->dob;
+                $user['profile']=Auth::user()->profile;
+            }
+    return view('users.confirmUpdateUser',compact('user'));
     }
     /**
      * Update the specified resource in storage.
@@ -180,6 +209,7 @@ class UserController extends Controller
         $user['phone']=$request->phone;
         $user['address']=$request->address;
         $user['dob']=$request->dob;
+        $user['profile']=$request->profile;
         $user['updated_user_id']=Auth::user()->id;
         $user['updated_at']=now();
         $id=$request->id;
@@ -205,5 +235,5 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted Successfully');
     }
-    
+  
 }

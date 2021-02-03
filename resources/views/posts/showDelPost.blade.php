@@ -34,12 +34,6 @@
                                 <input id="create_user_id" type="text" class="form-control" name="create_user_id" value="{{$post['create_user_id']}}" readonly>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="updated_user_id" class="col-md-4 col-form-label text-md-right">{{ __('Updated_user_id') }}</label>
-                            <div class="col-md-6">
-                                <input id="updated_user_id" type="text"class="form-control" name="updated_user_id" value="{{$post['updated_user_id']}}" readonly>
-                            </div>
-                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
