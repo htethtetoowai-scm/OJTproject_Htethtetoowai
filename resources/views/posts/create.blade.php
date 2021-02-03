@@ -19,20 +19,21 @@
                                         </span>
                                      @enderror
                                 </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
                                 <div class="col-md-6">
                                     <textarea class="form-control" id="description" name="description"></textarea>
-                                    @error('description')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
                                 <a class="btn btn-danger" href="{{ route('posts.index') }}"> Back</a>
                             </div>
                             </br>

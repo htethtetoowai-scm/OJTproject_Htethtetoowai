@@ -15,8 +15,9 @@ class GuestDao implements GuestDaoInterface
    */
   public function getPostList()
   {
-   
-    $posts= Post::where('deleted_id', '=',NUll)->paginate(5);
+    $posts= Post::where('deleted_id', '=',NUll)
+    ->orwhere('status','=','1')
+    ->paginate(5);
     return $posts;
   }
   public function searchPost($search)
@@ -26,5 +27,4 @@ class GuestDao implements GuestDaoInterface
         ->paginate(5);
         return $posts;
   }
-  
 }

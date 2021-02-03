@@ -24,6 +24,9 @@
                                         </span>
                                      @enderror
                                 </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
@@ -35,6 +38,9 @@
                                         </span>
                                         @enderror
                                 </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="status" class="col-md-4 text-md-right">Status</label>
@@ -44,11 +50,6 @@
                                     <input type="radio"name="status" id="status" value="0">
                                     <label for="Offline">OffLine</label>
                                     <br>
-                                    @error('status')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

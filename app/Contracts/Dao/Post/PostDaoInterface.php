@@ -10,5 +10,4 @@ interface PostDaoInterface
   public function postUpdate($post,$id);
   public function postDel($post,$id);
   public function searchPost($search);
-
 }

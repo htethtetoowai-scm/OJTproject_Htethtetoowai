@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Guest;
 
-use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\User;
 use App\Contracts\Services\Guest\GuestServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
 
 class GuestController extends Controller
-{private $GuestInterface;
+{
+    private $GuestInterface;
     /**
      * Create a new controller instance.
      *
@@ -34,11 +34,17 @@ class GuestController extends Controller
             'posts' => $posts],compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    /**
+     * Get UserName to display in PostList .
+     */
     public static function getName($id) {
         $user=User::find($id);
         $userName=$user->name;
         return  $userName;
     }
+    /**
+     *Search Function in search page.
+     */
     public function searchByGuest(Request $request)
     {
         $search = $request->get('search');
@@ -54,5 +60,4 @@ class GuestController extends Controller
                 ->with('i', (request()->input('page', 1) - 1) * 5);  
         }
     }
-  
 }

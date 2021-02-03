@@ -12,8 +12,8 @@
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                         <div class="col-md-6">
-                            <label for="name" class=" col-form-label text-md-right">{{Auth::user()->name}}</label>
-                            <p><img src="<?php echo asset('resources\views\users\2.png')?>"width="500" /></p>
+                            <label for="name" class=" col-form-label text-md-right">{{Auth::user()->name}}</label></br>
+                            <img src="{{ asset('storage/images/'.trim(Auth::user()->profile, '"')) }}" height="100px" width="100px" alt="">
                         </div>
                      </div>
                     <div class="form-group row">

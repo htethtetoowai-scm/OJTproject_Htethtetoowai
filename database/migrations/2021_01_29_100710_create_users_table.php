@@ -33,7 +33,6 @@ class CreateUsersTable extends Migration
             $table->dateTime('deleted_at',0)->nullable();
         });
     }
-
     /**
      * Reverse the migrations.
      *

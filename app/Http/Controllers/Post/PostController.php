@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Post;
 
-use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\User;
 use App\Contracts\Services\Post\PostServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AdminPostsExport;
 use App\Exports\GuestPostsExport;
+use Illuminate\Http\Request;
 use App\Imports\PostsImport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -74,7 +74,7 @@ class PostController extends Controller
     public function confirmCreatePost(Request $request)
     {   
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255|string|unique:posts',
             'description' => 'required',
         ]);
         $post=$request->only([
@@ -138,7 +138,7 @@ class PostController extends Controller
     {   
         $request->validate([
             'id'=>'required',
-            'title' => 'required',
+            'title' => 'required|max:255|unique:posts,title,'.$request->id,
             'description' => 'required',
             'status'=>'required'
            
@@ -197,10 +197,14 @@ class PostController extends Controller
     }
    
     /**
+    *Import CSV file 
     * @return \Illuminate\Support\Collection
     */
-    public function import() 
+    public function import(request $request) 
     {
+        $request->validate([
+            'file'=>'required|max:2048',
+       ]);
         Excel::import(new PostsImport,request()->file('file'));
            
         return redirect()->route('posts.index')
@@ -214,7 +218,7 @@ class PostController extends Controller
         $post=Post::find($id);
         return view('posts.showDelPost',compact('post'));
     }
-      /**
+    /**
      *Doing Soft Delete.
      */
     public function delPost(Request $request)
@@ -225,7 +229,6 @@ class PostController extends Controller
             'description' => 'required',
             'status' => 'required',
             'create_user_id' => 'required',
-            'updated_user_id'=>'required|min:1'
         ]);
         $post=$request->only([
             'id',
@@ -233,14 +236,10 @@ class PostController extends Controller
             'description',
             'status',
             'create_user_id',
-            'updated_user_id'
         ]);
         $id=$request->id;
         $result['data']= $this->postInterface->postDel($post,$id);
         return redirect()->route('posts.index')
                         ->with('success','Post deleted Successfully');
     }
-
-  
-    
 }

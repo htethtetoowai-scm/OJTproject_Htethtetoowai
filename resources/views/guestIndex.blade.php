@@ -19,7 +19,6 @@
 @endif 
 <table class="table table-bordered">
     <tr>
-        <th>ID</th>
         <th>Post Title</th>
         <th>Post Description</th>
         <th>Post Use</th>
@@ -27,7 +26,6 @@
     </tr>
     @foreach ($posts as $post)
     <tr>
-        <td>{{ $post->id}}</td>
         <td>{{ $post->title }}</td>
         <td>{{ $post->description }}</td>
         <td><?php echo app\Http\Controllers\Guest\GuestController::getName($post['create_user_id']);?></td>

@@ -27,4 +27,8 @@ class GuestService implements GuestServiceInterface
   {
     return $this->guestDao->getPostList();
   }
+  public function searchPost($search)
+  {
+    return $this->guestDao->searchPost($search);
+  }
 }

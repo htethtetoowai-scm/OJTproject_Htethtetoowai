@@ -7,33 +7,37 @@
             <div class="card">
                 <div class="card-header">{{ __('Update Profile') }}</div>
                     <div class="card-body">
-                        <form action="{{ route('confirmUpdateUser')}}" method="GET"enctype="multipart/form-data">
+                        <form action="{{ route('confirmUpdateUser')}}" method="POST"enctype="multipart/form-data">
                             @csrf
+                            @foreach ($errors->all() as $error)
+                            <p class="text-danger">{{ $error }}</p>
+                            @endforeach 
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <input id="id" name="id" type="hidden" value="{{Auth::user()->id}}">                                </div>
+                                    <input id="id" name="id" type="hidden" value="{{Auth::user()->id}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-7" style="margin-left:auto">
+                                <img src="{{ asset('storage/images/'.trim(Auth::user()->profile, '"')) }}" height="100px" width="100px" alt="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" value="{{Auth::user()->name}}" required autocomplete="name" autofocus>
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{Auth::user()->email}}" required autocomplete="email">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <input id="email" type="email" class="form-control" name="email" value="{{Auth::user()->email}}" readonly autocomplete="email">
+                                </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -48,46 +52,40 @@
                                     <option value="User" selected>User</option>
                                     @endif
                                     </select>
-                                    @error('type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
                                 <div class="col-md-6">
-                                    <input id="phone" type="text"  class="form-control" name="phone" value="{{Auth::user()->phone}}" required >
-                                    @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <input id="phone" type="text"  class="form-control" name="phone" value="{{Auth::user()->phone}}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
                                 <div class="col-md-6">
-                                    <input id="address" type="text"   class="form-control" name="address" value="{{Auth::user()->address}}" required >
-                                    @error('address')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <input id="address" type="text"   class="form-control" name="address" value="{{Auth::user()->address}}" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
                                 <div class="col-md-6">
-                                    <input id="dob" type="date" class="form-control" value="{{Auth::user()->dob}}" name="dob" required >
-                                    @error('dob')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <input id="dob" type="date" class="form-control" value="{{Auth::user()->dob}}" name="dob">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Profile') }}</label>
+                                <div class="col-md-6">
+                                    <p><input type="file" name="profile" id="profile" onchange="previewFile(this);"/></p>
+                                    <img id="previewImg" style="height:100px;width:100px">
                                     </br>
-                                    <a href="{{route('changePass')}}">Change Password?</a>
+                                    </br>
+                                     <a href="{{route('changePass')}}">Change Password?</a>
+                                </div>
+                                <div class="col-md-1 col-form-label">
+                                    <label style="color:red">{{ __('*') }}</label>                               
                                 </div>
                             </div>
                             <div class="form-group row mb-0">

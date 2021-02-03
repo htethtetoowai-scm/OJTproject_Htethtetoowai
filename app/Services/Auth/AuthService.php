@@ -18,4 +18,12 @@ class AuthService implements AuthServiceInterface
   {
     $this->authDao = $authDao;
   }
+  public function authenticateUser($credentials)
+  {
+    return $this->authDao->authenticateUser($credentials);
+  }
+  public function changePassword($new_password)
+  {
+    return $this->authDao->changePassword($new_password);
+  }
 }
