@@ -38,9 +38,16 @@ class GuestController extends Controller
      * Get UserName to display in PostList .
      */
     public static function getName($id) {
-        $user=User::find($id);
-        $userName=$user->name;
-        return  $userName;
+        if(!$id==NULL)
+        {
+            $user=User::find($id);
+            $userName=$user->name;
+            return  $userName;
+        }
+        else{
+            $userName="-";
+            return  $userName;
+        }
     }
     /**
      *Search Function in search page.

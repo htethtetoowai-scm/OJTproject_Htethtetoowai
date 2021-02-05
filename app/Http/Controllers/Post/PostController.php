@@ -42,9 +42,17 @@ class PostController extends Controller
      * Display Created User Name in Post List.
      */
     public static function userName($id) {
-        $user=User::find($id);
-        $userName=$user->name;
-        return  $userName;
+        if(!$id==NULL)
+        {
+            $user=User::find($id);
+            $userName=$user->name;
+            return  $userName;
+        }
+        else{
+            $userName="-";
+            return  $userName;
+        }
+      
     }
     /**
      * Search function in Post List .
@@ -228,14 +236,14 @@ class PostController extends Controller
             'title' => 'required',
             'description' => 'required',
             'status' => 'required',
-            'create_user_id' => 'required',
+            'create_user' => 'required',
         ]);
         $post=$request->only([
             'id',
             'title',
             'description',
             'status',
-            'create_user_id',
+            'create_user',
         ]);
         $id=$request->id;
         $result['data']= $this->postInterface->postDel($post,$id);

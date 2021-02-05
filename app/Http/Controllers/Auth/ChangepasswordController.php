@@ -23,7 +23,6 @@ class ChangePasswordController extends Controller
         $this->middleware('auth');
         $this->authInterface = $authInterface;
     }
-  
     /**
      * Show the Change Password Page.
      *

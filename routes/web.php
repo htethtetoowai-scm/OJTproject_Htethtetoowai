@@ -32,7 +32,6 @@ Route::get('posts/create/confirmCreatePost', 'Post\PostController@confirmCreateP
 Route::post('store', 'Post\PostController@store')->name('store');
 Route::get('confirmUpdatePost','Post\PostController@confirmUpdatePost')->name('confirmUpdatePost');
 Route::post('updating','Post\PostController@updating')->name('updating');
-Route::get('/posts/{id}/showDelPost', 'Post\PostController@showDelPost')->name('showDelPost');
 Route::post('delPost','Post\PostController@delPost')->name('delPost');
 Route::get('searchPost','Post\PostController@searchPost')->name('searchPost');
 Route::post('getUserName', 'Post\PostController@getUserName')->name('getUserName');
@@ -56,7 +55,8 @@ Route::get('exportByAdmin', 'Post\PostController@exportByAdmin')->name('exportBy
 Route::get('exportByGuest', 'Post\PostController@exportByGuest')->name('exportByGuest');
 Route::get('uploadCSV', 'Post\PostController@uploadCSV')->name('uploadCSV');
 Route::post('import', 'Post\PostController@import')->name('import');
-//
-
-Route::post('reset_password_without_token', 'AccountsController@validatePasswordRequest');
-Route::post('reset_password_with_token', 'AccountsController@resetPassword');
+/* Forgot Password */
+Route::get('/forget-password', 'Auth\ForgotPasswordController@getEmail')->name('forget-password');
+Route::post('/forget-password', 'Auth\ForgotPasswordController@postEmail')->name('forget-password');
+Route::get('reset-password/{token}', 'Auth\ResetPasswordController@getPassword');
+Route::post('reset-password', 'Auth\ResetPasswordController@updatePassword');

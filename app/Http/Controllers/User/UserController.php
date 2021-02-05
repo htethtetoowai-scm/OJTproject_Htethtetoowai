@@ -37,9 +37,16 @@ class UserController extends Controller
      * Display Created User Name in User List.
      */
     public static function getCreateUser($id) {
-        $user=User::find($id);
-        $userName=$user->name;
-        return  $userName;
+        if(!$id==NULL)
+        {
+            $user=User::find($id);
+            $userName=$user->name;
+            return  $userName;
+        }
+        else{
+            $userName="-";
+            return  $userName;
+        }
     }
     /**
      * Search function in user List .

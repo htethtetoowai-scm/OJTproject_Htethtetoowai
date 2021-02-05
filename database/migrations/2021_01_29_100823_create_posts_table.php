@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->foreign('updated_user_id')->references('id')->on('users');
             $table->integer('deleted_id')->nullable();
             $table->dateTime('created_at',0)->notNullable();
-            $table->dateTime('updated_at',0)->notNullable();
+            $table->dateTime('updated_at',0)->Nullable();
             $table->dateTime('deleted_at',0)->nullable();
         });
     }

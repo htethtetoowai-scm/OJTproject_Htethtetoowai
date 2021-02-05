@@ -8,13 +8,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Styles -->
+  
     <link rel="stylesheet" href="/css/app.css" />
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/imageUpload.js"></script>
     <script src="js/jquery-3.5.1.min.js"></script>
-    
+    <script src="js/modal.js"></script>
+  
 </head>
 <body>
 <div id="app">
