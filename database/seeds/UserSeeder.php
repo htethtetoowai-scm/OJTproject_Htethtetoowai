@@ -18,16 +18,13 @@ class UserSeeder extends Seeder
             'name' => 'John Doe',
             'email' => 'john@example.com',
             'password' =>  Hash::make('test'),
-            'profile'=>'public\Image\userProfile\20210127040733.png',
-            'type' => '',
+            'profile'=>'20210127040733.png',
+            'type' => '1',
             'phone' => '98837747',
             'address' => 'Hledan, Yangon',
             'dob' => now(),
             'created_at'=>now(),
             'updated_at'=>now(),
-         
-            
-
         ]);
     }
 }

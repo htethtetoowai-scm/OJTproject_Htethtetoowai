@@ -15,6 +15,11 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                                <div class="col-md-7" style="margin-left:auto">
+                                <img src="{{ asset('storage/images/'.trim($user['profile'], '"')) }}" height="100px" width="100px" alt="">
+                                </div>
+                            </div>
+                    <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control" name="name" value="{{$user['name']}}" readonly>
@@ -61,9 +66,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Profile') }}</label>
                         <div class="col-md-6">
-                            <input id="profile" type="text" class="form-control"  name="profile" value="{{$user['profile']}}" readonly>
+                            <input id="profile" type="text" class="form-control"  name="profile" value="{{$user['profile']}}" hidden="hidden">
                         </div>
                     </div>
                     <div class="form-group row mb-0">

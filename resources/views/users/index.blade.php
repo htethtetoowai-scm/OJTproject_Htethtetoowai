@@ -62,7 +62,12 @@
         <td>{{ $user->name}}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->phone}}</td>
-        <td>{{ $user->create_user_id}}</td>
+        
+        @if($user->create_user_id==NULL)
+        <td>-</td>
+        @else
+        <td><?php echo app\Http\Controllers\User\UserController::getCreateUser($user->create_user_id);?></td>
+        @endif
         <td>{{$user->dob}}</td>
         <td>{{ $user->address }}</td>
         <td>{{ $user->created_at}}</td>

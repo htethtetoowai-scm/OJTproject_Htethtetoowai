@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Services\Auth\AuthServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -11,17 +12,20 @@ use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordController extends Controller
 {
+    private $authInterface;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AuthServiceInterface $authInterface)
     {
         $this->middleware('auth');
+        $this->authInterface = $authInterface;
     }
+  
     /**
-     * Show the application dashboard.
+     * Show the Change Password Page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -30,9 +34,7 @@ class ChangePasswordController extends Controller
         return view('Auth.changePassword');
     } 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Change Password Section.
      */
     public function store(Request $request)
     {
@@ -41,8 +43,7 @@ class ChangePasswordController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-        dd('Password change successfully.');
-        return redirect('logout');
+        $this->authInterface->changePassword($request->new_password);
+        return redirect()->route('logout');
     }
 }

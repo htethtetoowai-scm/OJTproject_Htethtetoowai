@@ -41,7 +41,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Update') }}
                                 </button>
-                                <a class="btn btn-danger" href="{{ route('posts.index') }}"> Back</a>
+                                <a class="btn btn-danger" href="{{ route('posts.index') }}">{{ __('Back') }}</a>
                             </div>
                         </div>
                         </br>
